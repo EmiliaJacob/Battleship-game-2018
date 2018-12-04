@@ -1,0 +1,208 @@
+package bs;
+import javax.swing.*; 
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+
+public class Battleship {
+	
+	private JFrame b; 
+	private JFrame o; 
+	
+	private JLabel u; 
+	
+	private JPanel l;
+	private JPanel r; 
+	
+	private GridBagConstraints c;
+	private static int h=0;
+	JLabel background = new JLabel(new ImageIcon("C:\\Users\\felix\\Desktop\\20181125_134807_HDR"));
+	
+	
+	private Button grid[] = new Button[1000]; 
+	private Button grid1[] = new Button[1000]; 
+	private final int hel []  = new int[1000];
+	//OPTIONS 
+	JButton start = new JButton ("Start vs KI"); 
+	JButton Online = new JButton ("Start vs other Player"); 
+	JTextField in = new JTextField (15);
+	JLabel brds = new JLabel("Set Boardsize");
+
+    
+	//Mouse Stuff 
+	Move move = new Move();
+	Click click = new Click();
+
+	public  int mx = -100;
+	public int my = -100; 
+	
+	
+	public void createB(int s) {
+		for (int i = 0 ; i < 1000 ; i++) { // erstellen der JButtons
+			grid[i] = new Button("");
+			grid[i].setPreferredSize(new Dimension(s,s));
+			hel[i]=i;
+			grid1[i] = new Button(""); 
+			grid1[i].setPreferredSize(new Dimension(s,s));
+		}
+	}
+	public void field(JPanel pane, Button help[],int s) {
+		for (int i=0; i<s;i++) {
+			c.gridx=i;
+		
+			for (int j=0; j<s;j++) {
+		
+				c.gridy=j; 
+		
+				pane.add(help[h],c);
+				help[h].x = i;
+				help[h].y = j;
+
+				//System.out.println("x:"+help[h].x+"y:"+help[h].y); 
+				
+				help[h].addActionListener(new ActionListener() {
+					
+		            public void actionPerformed(ActionEvent e) {
+		            	Button TRIGGER = (Button) e.getSource(); 
+
+		            	TRIGGER.setBackground(Color.blue);
+		            	System.out.println("x:"+TRIGGER.x+"y:"+TRIGGER.y); 
+		            	 System.out.print(">>> ");
+		            }
+
+		        });
+				h+=1;
+			
+			}
+		}
+	}
+	
+	public static void main(String[] args) {
+		new Battleship(); 
+	}
+		 
+	public Battleship () {
+		//MAIN_GAME	
+		b = new JFrame (); 
+		b.setVisible(true);
+		b.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		b.setSize(900, 600);
+		b.setResizable(false);
+		b.setLocationRelativeTo(null);
+		
+		
+
+		b.addMouseMotionListener(move);
+		b.addMouseListener(click);
+		
+		l = new JPanel(new GridBagLayout());
+		r = new JPanel(new GridBagLayout());
+		c = new GridBagConstraints(); 
+		
+		createB(30);
+		//grid[3].setBackground(Color.green);
+	
+		
+		field(l,grid,12);
+		field(r,grid1,12);
+		b.add(l,BorderLayout.WEST); 
+		b.add(r,BorderLayout.EAST); 
+		b.setVisible(true);
+		
+		
+		//SET UP 
+		o = new JFrame ("BATTLESHIP"); 
+		o.setVisible(true);
+		o.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		o.setSize(320, 222);
+		o.setResizable(true);
+		o.setVisible(true);
+		o.setLocationRelativeTo(null);
+		JLabel a = new JLabel();
+	    JLabel p = new JLabel();
+	    a.setBounds(20, 30, 100, 100);
+	    p.setBounds(250, 30, 100, 100);
+		
+	    a.setIcon(new ImageIcon("C:\\Users\\felix\\Pictures\\du"));
+		
+		JPanel q = new JPanel(new FlowLayout());
+		//q.setLayout(null);
+		o.add(p);
+		q.add(a);
+		
+		q.add(start);
+		q.add(Online);
+		q.add(brds);
+		q.add(in);
+		q.add(background);
+		o.add(q);
+		
+		
+
+		
+	}
+
+public class Move implements MouseMotionListener  {
+
+	@Override
+	public void mouseDragged(MouseEvent arg0) { //mouse inside box 
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {// moved inside window 
+		// TODO Auto-generated method stub
+		//System.out.println("mouse was moved ");
+		mx= e.getX();//returns the mouse coordinates 
+		my= e.getY();
+		
+		
+
+		//System.out.println("x"+mx+"y"+my);
+		
+
+	}
+
+}
+
+public class Click implements MouseListener {
+
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		System.exit(0);
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+}
+
+
+
+
+}
